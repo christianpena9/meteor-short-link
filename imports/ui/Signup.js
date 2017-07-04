@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { Accounts } from 'meteor/accounts-base';
 
 class Signup extends React.Component {
     constructor(props) {
@@ -19,9 +20,16 @@ class Signup extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         
-        this.setState({
-            error: 'Something went wrong.'
+        let email = this.refs.email.value.trim();
+        let password = this.refs.password.value.trim();
+        
+        Accounts.createUser({email, password}, (err) => {
+            console.log('Signup callback', err);
         });
+        
+        // this.setState({
+        //     error: 'Something went wrong.'
+        // });
     }
     
     render() {
@@ -33,8 +41,9 @@ class Signup extends React.Component {
                 {this.state.error ? <p>{this.state.error}</p> : undefined}
                 
                 <form onSubmit={this.onSubmit}>
-                    <input type="email" name="email" placeholder="Email" autoComplete="off"/>
-                    <input type="password" name="password" placeholder="Password"/>
+                    {/* Below we can reference the value outside our component */}
+                    <input type="email" ref="email" name="email" placeholder="Email" autoComplete="off"/>
+                    <input type="password" ref="password" name="password" placeholder="Password"/>
                     <button>Create Account</button>
                 </form>
                 
@@ -42,6 +51,6 @@ class Signup extends React.Component {
             </div>
         );
     }
-} // End of class
+} // End of Signup class
 
 export default Signup;
