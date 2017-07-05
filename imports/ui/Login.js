@@ -1,13 +1,49 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { Meteor } from 'meteor/meteor';
 
 class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            error: ''
+        };
+        
+        /*
+            Method 2. Using function defined in constructor
+            URL: http://egorsmirnov.me/2015/08/16/react-and-es6-part3.html
+        */
+        this.onSubmit = this.onSubmit.bind(this);
+    } // End of constructor
+    
+    onSubmit(e) {
+        e.preventDefault();
+        
+        let email = this.refs.email.value.trim();
+        let password = this.refs.password.value.trim();
+        
+        Meteor.loginWithPassword({email}, password, (err) => {
+            console.log('Login callback', err);
+        });
+        
+        e.target.email.value = '';
+        e.target.password.value = '';
+    }
+    
     render() {
         return (
             <div>
-                <h1>Login to Short Lnk</h1>
+                <h1>Short Lnk</h1>
                 
-                login form here
+                {/* Below the undefined or null is ignored by JSX */}
+                {this.state.error ? <p>{this.state.error}</p> : undefined}
+                
+                <form onSubmit={this.onSubmit}>
+                    {/* Below we can reference the value outside our component */}
+                    <input type="email" ref="email" name="email" placeholder="Email" autoComplete="off"/>
+                    <input type="password" ref="password" name="password" placeholder="Password"/>
+                    <button>Login</button>
+                </form>
                 <Link to='/signup'>Have an account?</Link>
             </div>
         );

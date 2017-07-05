@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { Accounts } from 'meteor/accounts-base';
 
 class Link extends React.Component {
     constructor() {
@@ -14,7 +14,7 @@ class Link extends React.Component {
     
     /* Below is a Custom Method for logging out */
     onLogout() {
-        browserHistory.push('/');
+        Accounts.logout();
     }
     
     render() {

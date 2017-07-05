@@ -30,6 +30,8 @@ class Signup extends React.Component {
         // this.setState({
         //     error: 'Something went wrong.'
         // });
+        e.target.email.value = '';
+        e.target.password.value = '';
     }
     
     render() {
