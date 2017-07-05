@@ -13,12 +13,32 @@ import Login from './../imports/ui/Login';
 const unauthenticatedPages = ['/', 'signup'];
 const authenticatedPages = ['/links'];
 
+/*
+    Below code checks if the user is logged in, if they are then we route them
+    to links (/links) page and keeps them there.
+*/
+const onEnterPublicPage = () => {
+    if(Meteor.userId()) {
+        browserHistory.replace('/links');
+    }
+};
+
+/*
+    Below code checks if the user is not logged in, if not then we route them
+    back to the login (/) page and keeps them there
+ */
+const onEnterPrivatePage = () => {
+    if(!Meteor.userId()) {
+        browserHistory.replace('/');
+    }
+};
+
 /* Below are routes we define for our app */
 const routes = (
     <Router history={browserHistory}>
-        <Route path='/' component={Login}/>
-        <Route path='/signup' component={Signup}/>
-        <Route path='/links' component={Link}/>
+        <Route path='/' component={Login} onEnter={onEnterPublicPage}/>
+        <Route path='/signup' component={Signup} onEnter={onEnterPublicPage}/>
+        <Route path='/links' component={Link} onEnter={onEnterPrivatePage}/>
         <Route path='*' component={NotFound}/>
     </Router>
 );
@@ -45,9 +65,9 @@ Tracker.autorun(() => {
         should re-direct users to root path
     */
     if(isUnauthenticatedPage && isAuthenticated) {
-        browserHistory.push('/links');
+        browserHistory.replace('/links');
     } else if(isAuthenticatedPage && !isAuthenticated) {
-        browserHistory.push('/');
+        browserHistory.replace('/');
     }
 });
 
