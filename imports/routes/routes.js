@@ -8,7 +8,7 @@ import Link from './../ui/Link';
 import NotFound from './../ui/NotFound';
 import Login from './../ui/Login';
 
-const unauthenticatedPages = ['/', 'signup'];
+const unauthenticatedPages = ['/', '/signup'];
 const authenticatedPages = ['/links'];
 
 /*

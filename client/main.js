@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Tracker } from 'meteor/tracker';
 
 import { routes, onAuthChange } from '../imports/routes/routes';
+import { Links } from '../imports/api/links';
 
 /*
     The Below code will run everytime Meteor.userId() changes. If it changes
@@ -15,6 +16,12 @@ Tracker.autorun(() => {
     */
     const isAuthenticated = !!Meteor.userId();
     onAuthChange(isAuthenticated);
+});
+
+/* We are checking if the Links database changes */
+Tracker.autorun(() => {
+    let links = Links.find().fetch();
+    console.log('New Links', links);
 });
 
 Meteor.startup(() => {
