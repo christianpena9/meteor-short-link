@@ -23,13 +23,19 @@ class Signup extends React.Component {
         let email = this.refs.email.value.trim();
         let password = this.refs.password.value.trim();
         
+        if (password.length < 9) {
+            /* We return here so we can stop the code from continuing */
+            return this.setState({error: 'Password must be more than 8 characters long'});
+        }
+        
         Accounts.createUser({email, password}, (err) => {
-            console.log('Signup callback', err);
+            if (err) {
+                this.setState({error: err.reason});
+            } else {
+                this.setState({error: ''});
+            }
         });
         
-        // this.setState({
-        //     error: 'Something went wrong.'
-        // });
         e.target.email.value = '';
         e.target.password.value = '';
     }
@@ -42,7 +48,7 @@ class Signup extends React.Component {
                 {/* Below the undefined or null is ignored by JSX */}
                 {this.state.error ? <p>{this.state.error}</p> : undefined}
                 
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit} noValidate>
                     {/* Below we can reference the value outside our component */}
                     <input type="email" ref="email" name="email" placeholder="Email" autoComplete="off"/>
                     <input type="password" ref="password" name="password" placeholder="Password"/>

@@ -23,7 +23,11 @@ class Login extends React.Component {
         let password = this.refs.password.value.trim();
         
         Meteor.loginWithPassword({email}, password, (err) => {
-            console.log('Login callback', err);
+            if (err) {
+                this.setState({error: 'Unable to login. Check email and password.'});
+            } else {
+                this.setState({error: ''});
+            }
         });
         
         e.target.email.value = '';
@@ -38,7 +42,7 @@ class Login extends React.Component {
                 {/* Below the undefined or null is ignored by JSX */}
                 {this.state.error ? <p>{this.state.error}</p> : undefined}
                 
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit} noValidate>
                     {/* Below we can reference the value outside our component */}
                     <input type="email" ref="email" name="email" placeholder="Email" autoComplete="off"/>
                     <input type="password" ref="password" name="password" placeholder="Password"/>
