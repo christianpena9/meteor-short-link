@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
 
 export const Links = new Mongo.Collection('links');
 
@@ -39,12 +40,26 @@ Meteor.methods({
         then it's fair game.
     */
     'links.insert'(url) {
+        
+        // We check to make sure user is logged in, if not then we throw an error.
         if(!this.userId) {
             // if we throw error then we stop execution. Rest of code wont' run.
             throw new Meteor.Error('not-authorized');
         }
         
-        Links.insert({ url, userId: this.userId });
+        /* Below we check the url to make sure it's formated how we expect it */
+        new SimpleSchema({
+            url: {
+                type: String,
+                label: 'Your link',
+                regEx: SimpleSchema.RegEx.Url
+            }
+        }).validate({ url });
+        
+        Links.insert({
+            url,
+            userId: this.userId
+        });
     }
 });
 

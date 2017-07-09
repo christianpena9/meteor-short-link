@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Tracker } from 'meteor/tracker';
 
 import { routes, onAuthChange } from '../imports/routes/routes';
+import '../imports/startup/simple-schema-configuration';
 
 /*
     The Below code will run everytime Meteor.userId() changes. If it changes
