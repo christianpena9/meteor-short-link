@@ -30,9 +30,22 @@ if (Meteor.isServer) {
     Note: We are not using fat arrow (=>) here again because we want to have
     access to the 'this' binding. We are using ES6 syntax where we remove the
     function word.
+    Note: Meteor has a naming convention but you can name them anything you want.
+    Naming convention is: 'resource.action' for example 'links.insert'
 */
 Meteor.methods({
-    
+    /*
+        Note: in objects you can't use the dot(.) but if you wrap it in a string
+        then it's fair game.
+    */
+    'links.insert'(url) {
+        if(!this.userId) {
+            // if we throw error then we stop execution. Rest of code wont' run.
+            throw new Meteor.Error('not-authorized');
+        }
+        
+        Links.insert({ url, userId: this.userId });
+    }
 });
 
 /*
