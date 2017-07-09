@@ -60,7 +60,32 @@ Meteor.methods({
         Links.insert({
             _id: shortid.generate(),
             url,
+            userId: this.userId,
+            visible: true
+        });
+    },
+    'links.setVisibility'(_id, visible) {
+        // We check to make sure user is logged in, if not then we throw an error.
+        if(!this.userId) {
+            // if we throw error then we stop execution. Rest of code wont' run.
+            throw new Meteor.Error('not-authorized');
+        }
+        
+        new SimpleSchema({
+            _id: {
+                type: String,
+                min: 1
+            },
+            visible: {
+                type: Boolean
+            }
+        }).validate({ _id, visible });
+        
+        Links.update({
+            _id,
             userId: this.userId
+        },{
+            $set: { visible }
         });
     }
 });

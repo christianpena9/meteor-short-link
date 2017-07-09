@@ -24,7 +24,7 @@ class LinksList extends React.Component {
         /* We are checking if the Links database changes */
         this.linksTracker = Tracker.autorun(() => {
             Meteor.subscribe('links');
-            const links = Links.find().fetch();
+            const links = Links.find({visible: false}).fetch();
             this.setState({ links });
         });
     } // End of componentDidMount
