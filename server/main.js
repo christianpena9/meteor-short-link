@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 
 import '../imports/api/users';
-import '../imports/api/links';
+import { Links } from '../imports/api/links';
 import '../imports/startup/simple-schema-configuration';
 
 /*
@@ -15,14 +15,27 @@ import '../imports/startup/simple-schema-configuration';
     them that page
 */
 Meteor.startup(() => {
+    
     WebApp.connectHandlers.use((req, res, next) => {
-        console.log('This is from my custom middleware!');
-        console.log(req.url, req.method, req.headers, req.query);
+        const _id = req.url.slice(1);
+        const link = Links.findOne({ _id });
         
-        
-        next(); // need to call next so the page can continue to load
+        if(link) {
+            res.statusCode = 302;
+            res.setHeader('Location', link.url);
+            res.end();
+        } else {
+            next();
+        }
     });
+    
 });
+
+//WebApp.connectHandlers.use((req, res, next) => {
+    //console.log('This is from my custom middleware!');
+    //console.log(req.url, req.method, req.headers, req.query);
+    //next(); // need to call next so the page can continue to load
+//});
 
 /* Below we are changing the response information */
 
