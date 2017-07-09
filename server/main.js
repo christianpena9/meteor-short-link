@@ -1,12 +1,39 @@
 import { Meteor } from 'meteor/meteor';
+import { WebApp } from 'meteor/webapp';
 
 import '../imports/api/users';
 import '../imports/api/links';
 import '../imports/startup/simple-schema-configuration';
 
+/*
+    Below WebApp is used as a middleware to do some action depending on what the
+    request is from the user.
+    Req: short hand for request. It contains info on what header/url they came in
+    Res: this allows us to respond to the current request
+    next: is just a function and it allows the application to keep on moving
+    Steps: request comes in, then run our middleware one at a time and then send
+    them that page
+*/
 Meteor.startup(() => {
-    
+    WebApp.connectHandlers.use((req, res, next) => {
+        console.log('This is from my custom middleware!');
+        console.log(req.url, req.method, req.headers, req.query);
+        
+        
+        next(); // need to call next so the page can continue to load
+    });
 });
+
+/* Below we are changing the response information */
+
+// Set HTTP status code
+//res.statusCode = 404;
+// Set HTTP headers
+//res.setHeader('my-custom-header', 'Christian was here!');
+// Set HTTP body
+//res.write('<h1>This is my middleware at work!</h1>');
+// End HTTP request
+//res.end();
 
 // code to run on server at startup
 
