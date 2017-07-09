@@ -22,6 +22,19 @@ Meteor.startup(() => {
     ReactDOM.render(routes, document.getElementById('app'));
 });
 
+/*
+    Stateless functional components (presentational component)
+    Note: Below component is simple and it's not smart, all it really does is
+    render some data to the data and that's it. No logic found here.
+*/
+// import React from 'react';
+// const MyComponent = (props) => {
+//     return(
+//         <div>
+//             <h1>MyComponent is here! {props.name}</h1>
+//         </div>
+//     );
+// };
 
 /*
     Below are examples on calling meteor methods
