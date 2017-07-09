@@ -27,8 +27,38 @@ if (Meteor.isServer) {
 /*
     Below methods will be used on both the server and on the client. Methods is
     how we insert, remove and update the database.
+    Note: We are not using fat arrow (=>) here again because we want to have
+    access to the 'this' binding. We are using ES6 syntax where we remove the
+    function word.
 */
+Meteor.methods({
+    
+});
 
+/*
+    Below are examples on how to use meteor methods.
+    We do a check first to see if it fails, if it does then we throw an
+    error and the code will stop. If there is no error then we return
+    the values.
+*/
+/*
+greetUser(name) {
+    console.log('greetUser is running');
+    
+    if(!name) {
+        throw new Meteor.Error('invalid-arguments', 'Name is required');
+    }
+    
+    return `Hello ${name}!`;
+},
+addNumber(a,b) {
+    if(typeof a !== 'number' || typeof b !== 'number') {
+        throw new Meteor.Error('invalid-arguments', 'Expecting two numbers');
+    }
+    
+    return a + b;
+}
+*/
 
 // Below code is another way to export Links Collection.
 /*

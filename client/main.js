@@ -20,3 +20,21 @@ Tracker.autorun(() => {
 Meteor.startup(() => {
     ReactDOM.render(routes, document.getElementById('app'));
 });
+
+
+/*
+    Below are examples on calling meteor methods
+    Below Meteor.call take 2 parameters. First one is the name of the method
+    as a string and second is a callback function. The callback function
+    will let us know if the call failed (err) or passed (res). You can also
+    add a parameter to this method which will be in between the method name
+    and the callback function. 
+*/
+/*
+Meteor.call('greetUser', (err, res) => {
+    console.log('GreetUser arguments', err, res);
+});
+Meteor.call('addNumber', 1, 1, (err, res) => {
+    console.log('AddNumber arguments', err, res);
+});
+*/
