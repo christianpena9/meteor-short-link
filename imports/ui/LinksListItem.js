@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import Clipboard from 'clipboard';
+import moment from 'moment';
 
 class LinksListItem extends React.Component {
     constructor(props) {
@@ -42,6 +43,20 @@ class LinksListItem extends React.Component {
         Meteor.call('links.setVisibility', this.props._id, !this.props.visible);
     }
     
+    renderStats() {
+        /* Below code needs to be return so it can be viewed when rendered */
+        const visitMessage = this.props.visitedCount === 1 ? 'visit' : 'visits';
+        let visitedMessage = null;
+        
+        if(typeof this.props.lastVisitedAt === 'number') {
+            let now = moment();
+            
+            visitedMessage = `(visited ${ moment(this.props.lastVisitedAt).fromNow() })`;
+        }
+        
+        return <p>{this.props.visitedCount} {visitMessage} {visitedMessage}</p>;
+    }
+    
     render() {
         let copyText;
         this.state.justCopied ? copyText = 'Copied' : copyText = 'Copy';
@@ -53,7 +68,7 @@ class LinksListItem extends React.Component {
                 <p>{this.props.url}</p>
                 <p>{this.props.shortUrl}</p>
                 <p>{this.props.visible.toString()}</p>
-                <p>{this.props.visitedCount} - {this.props.lastVisitedAt}</p>
+                {this.renderStats()}
                 <button ref='copy' data-clipboard-text={this.props.shortUrl}>{copyText}</button>
                 <button onClick={this.setVisibility}>{visibleText}</button>
             </div>
