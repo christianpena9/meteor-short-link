@@ -1,11 +1,13 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import Modal from 'react-modal';
 
 class AddLink extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: ''
+            url: '',
+            isOpen: false
         };
         /*
             Below is a Custom Method binding 'this' so we don't have call it
@@ -13,6 +15,8 @@ class AddLink extends React.Component {
         */
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
     
     onSubmit(e) {
@@ -25,7 +29,7 @@ class AddLink extends React.Component {
         if(url) {
             Meteor.call('links.insert', url, (err, res) => {
                 if(!err) {
-                    this.setState({ url: '' });
+                    this.setState({ url: '', isOpen: false });
                 }
             });
             
@@ -46,21 +50,39 @@ class AddLink extends React.Component {
         });
     }
     
+    /* Below method opens the modal */
+    openModal() {
+        /*
+            Below we just need to call the name of the state we want to change
+            with the value we want to change it to.
+        */
+        this.setState({ isOpen: true });
+    }
+    
+    /* Below method closes the modal */
+    closeModal() {
+        this.setState({ isOpen: false, url: '' });
+    }
+    
     render() {
         return(
             <div>
-                <p>Add Link</p>
-                <form onSubmit={this.onSubmit}>
-                    <input
-                        type="text"
-                        //ref="url"
-                        placeholder="URL"
-                        autoComplete="off"
-                        value={this.state.url}
-                        onChange={this.onChange}
-                    />
-                    <button>Add Link</button>
-                </form>
+                <button onClick={this.openModal}>+ Add Link</button>
+                <Modal isOpen={this.state.isOpen} contentLabel='Add Link'>
+                    <p>Add Link</p>
+                    <form onSubmit={this.onSubmit}>
+                        <input
+                            type="text"
+                            //ref="url"
+                            placeholder="URL"
+                            autoComplete="off"
+                            value={this.state.url}
+                            onChange={this.onChange}
+                        />
+                        <button>Add Link</button>
+                    </form>
+                    <button onClick={this.closeModal}>Cancel</button>
+                </Modal>
             </div>
         );
     }
