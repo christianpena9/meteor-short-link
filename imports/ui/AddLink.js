@@ -16,8 +16,9 @@ class AddLink extends React.Component {
         */
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
+        this.handleModalOpen = this.handleModalOpen.bind(this);
+        this.handleModalClose = this.handleModalClose.bind(this);
+        this.handleInputOnFocus = this.handleInputOnFocus.bind(this);
     }
     
     onSubmit(e) {
@@ -31,7 +32,7 @@ class AddLink extends React.Component {
             
             /* Below code will run if there is no error */
             if(!err) {
-                this.setState({ url: '', isOpen: false, error: '' });
+                this.handleModalClose();
             } else {
                 this.setState({ error: err.reason });
             }
@@ -58,7 +59,7 @@ class AddLink extends React.Component {
     }
     
     /* Below method opens the modal */
-    openModal() {
+    handleModalOpen() {
         /*
             Below we just need to call the name of the state we want to change
             with the value we want to change it to.
@@ -67,15 +68,28 @@ class AddLink extends React.Component {
     }
     
     /* Below method closes the modal */
-    closeModal() {
+    handleModalClose() {
         this.setState({ isOpen: false, url: '', error: '' });
+    }
+    
+    /*
+        Below method tells the modal what input needs to be focus. Note that we
+        can do inline fat arrow function to call the function in a much cleaner
+        way. Want to keep things consistent so created a method.
+    */
+    handleInputOnFocus() {
+        this.refs.url.focus();
     }
     
     render() {
         return(
             <div>
-                <button onClick={this.openModal}>+ Add Link</button>
-                <Modal isOpen={this.state.isOpen} contentLabel='Add Link'>
+                <button onClick={this.handleModalOpen}>+ Add Link</button>
+                <Modal
+                    isOpen={this.state.isOpen}
+                    contentLabel='Add Link'
+                    onAfterOpen={this.handleInputOnFocus}
+                    onRequestClose={this.handleModalClose}>
                     <h1>Add Link</h1>
                 
                     {/*
@@ -86,7 +100,7 @@ class AddLink extends React.Component {
                     <form onSubmit={this.onSubmit}>
                         <input
                             type="text"
-                            //ref="url"
+                            ref="url"
                             placeholder="URL"
                             autoComplete="off"
                             value={this.state.url}
@@ -94,7 +108,7 @@ class AddLink extends React.Component {
                         />
                         <button>Add Link</button>
                     </form>
-                    <button onClick={this.closeModal}>Cancel</button>
+                    <button onClick={this.handleModalClose}>Cancel</button>
                 </Modal>
             </div>
         );

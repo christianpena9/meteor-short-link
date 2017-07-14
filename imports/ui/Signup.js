@@ -42,20 +42,22 @@ class Signup extends React.Component {
     
     render() {
         return (
-            <div>
-                <h1>Join Short Lnk</h1>
-                
-                {/* Below the undefined or null is ignored by JSX */}
-                {this.state.error ? <p>{this.state.error}</p> : undefined}
-                
-                <form onSubmit={this.onSubmit} noValidate>
-                    {/* Below we can reference the value outside our component */}
-                    <input type="email" ref="email" name="email" placeholder="Email" autoComplete="off"/>
-                    <input type="password" ref="password" name="password" placeholder="Password"/>
-                    <button>Create Account</button>
-                </form>
-                
-                <Link to="/">Already have an account?</Link>
+            <div className="boxed-view">
+                <div className="boxed-view__box">
+                    <h1>Join Short Lnk</h1>
+                    
+                    {/* Below the undefined or null is ignored by JSX */}
+                    {this.state.error ? <p>{this.state.error}</p> : undefined}
+                    
+                    <form onSubmit={this.onSubmit} noValidate>
+                        {/* Below we can reference the value outside our component */}
+                        <input type="email" ref="email" name="email" placeholder="Email" autoComplete="off"/>
+                        <input type="password" ref="password" name="password" placeholder="Password"/>
+                        <button>Create Account</button>
+                    </form>
+                    
+                    <Link to="/">Already have an account?</Link>
+                </div>
             </div>
         );
     }
