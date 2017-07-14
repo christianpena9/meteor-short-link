@@ -7,7 +7,8 @@ class AddLink extends React.Component {
         super(props);
         this.state = {
             url: '',
-            isOpen: false
+            isOpen: false,
+            error: ''
         };
         /*
             Below is a Custom Method binding 'this' so we don't have call it
@@ -26,20 +27,26 @@ class AddLink extends React.Component {
         // const url = this.state.url;
         const { url } = this.state;
         
-        if(url) {
-            Meteor.call('links.insert', url, (err, res) => {
-                if(!err) {
-                    this.setState({ url: '', isOpen: false });
-                }
-            });
+        Meteor.call('links.insert', url, (err, res) => {
             
-            /*
-                Below is old code that does not work any more since we removed
-                insecure.
-             */
-            //Links.insert({ url, userId: Meteor.userId() });
-            //this.refs.url.value = '';
-        }
+            /* Below code will run if there is no error */
+            if(!err) {
+                this.setState({ url: '', isOpen: false, error: '' });
+            } else {
+                this.setState({ error: err.reason });
+            }
+        });
+        
+        // if(url) {
+        //     
+        //     
+        //     /*
+        //         Below is old code that does not work any more since we removed
+        //         insecure.
+        //      */
+        //     //Links.insert({ url, userId: Meteor.userId() });
+        //     //this.refs.url.value = '';
+        // }
     }
     
     onChange(e) {
@@ -61,7 +68,7 @@ class AddLink extends React.Component {
     
     /* Below method closes the modal */
     closeModal() {
-        this.setState({ isOpen: false, url: '' });
+        this.setState({ isOpen: false, url: '', error: '' });
     }
     
     render() {
@@ -69,7 +76,13 @@ class AddLink extends React.Component {
             <div>
                 <button onClick={this.openModal}>+ Add Link</button>
                 <Modal isOpen={this.state.isOpen} contentLabel='Add Link'>
-                    <p>Add Link</p>
+                    <h1>Add Link</h1>
+                
+                    {/*
+                        Below code will return false if the sting is empty. Undefined
+                        will not render the code (won't make it appear).
+                    */}
+                    { this.state.error ? <p>{this.state.error}</p> : undefined }
                     <form onSubmit={this.onSubmit}>
                         <input
                             type="text"
