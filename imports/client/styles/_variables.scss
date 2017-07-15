@@ -1,6 +1,19 @@
+/*
+    Below color variable is used to make things more customizable. This allows
+    us to reuse the same color everywhere or we can choose to have a different one.
+*/
+// Colors
+$grey: #dddddd;
+
+// Spacing
+$space: 1.4rem;
+
 // Font Sizes
-$base-font-size: 1.6rem;
+$base-font-size: 1.4rem;
+
+// Form Inputs
+$input-border: $grey;
 
 // Boxed View Variables
-$boxed-view-overlay-bg: #dddddd;
+$boxed-view-overlay-bg: $grey;
 $boxed-view-bg: #ffffff;

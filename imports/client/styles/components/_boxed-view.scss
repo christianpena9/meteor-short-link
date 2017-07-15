@@ -15,6 +15,10 @@
     background-color: $boxed-view-bg;
     padding: 2.4rem;
     text-align: center;
-    width: 24rem;
-    
+    width: 24rem;    
+}
+
+.boxed-view__form {
+    display: flex;
+    flex-direction: column;
 }

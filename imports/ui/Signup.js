@@ -49,7 +49,7 @@ class Signup extends React.Component {
                     {/* Below the undefined or null is ignored by JSX */}
                     {this.state.error ? <p>{this.state.error}</p> : undefined}
                     
-                    <form onSubmit={this.onSubmit} noValidate>
+                    <form onSubmit={this.onSubmit} noValidate className="boxed-view__form">
                         {/* Below we can reference the value outside our component */}
                         <input type="email" ref="email" name="email" placeholder="Email" autoComplete="off"/>
                         <input type="password" ref="password" name="password" placeholder="Password"/>
