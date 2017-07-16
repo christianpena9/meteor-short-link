@@ -89,7 +89,10 @@ class AddLink extends React.Component {
                     isOpen={this.state.isOpen}
                     contentLabel='Add Link'
                     onAfterOpen={this.handleInputOnFocus}
-                    onRequestClose={this.handleModalClose}>
+                    onRequestClose={this.handleModalClose}
+                    className="boxed-view__box"
+                    overlayClassName="boxed-view boxed-view--modal"
+                    >
                     <h1>Add Link</h1>
                 
                     {/*
@@ -97,7 +100,7 @@ class AddLink extends React.Component {
                         will not render the code (won't make it appear).
                     */}
                     { this.state.error ? <p>{this.state.error}</p> : undefined }
-                    <form onSubmit={this.onSubmit}>
+                    <form onSubmit={this.onSubmit} className="boxed-view__form">
                         <input
                             type="text"
                             ref="url"
@@ -106,9 +109,9 @@ class AddLink extends React.Component {
                             value={this.state.url}
                             onChange={this.onChange}
                         />
-                        <button>Add Link</button>
+                        <button className="button">Add Link</button>
+                        <button type="button" className="button button--secondary" onClick={this.handleModalClose}>Cancel</button>
                     </form>
-                    <button onClick={this.handleModalClose}>Cancel</button>
                 </Modal>
             </div>
         );

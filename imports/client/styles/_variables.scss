@@ -3,6 +3,7 @@
     us to reuse the same color everywhere or we can choose to have a different one.
 */
 // Colors
+$brand-primay: #5b4681;
 $grey: #dddddd;
 
 // Spacing
@@ -20,6 +21,9 @@ $boxed-view-overlay-bg: $grey;
 $boxed-view-bg: #ffffff;
 
 // Button
-$button-bg: #5b4681;
+$button-bg: $brand-primay;
 $button-color: white;
-$button-pill-color: #5b4681;
+$button-pill-color: $brand-primay;
+$button--secondary-bg: #f9f9f9;
+$button--secondary-color: #777777;
+$button--secondary-border-color: $grey;
