@@ -53,7 +53,7 @@ class Signup extends React.Component {
                         {/* Below we can reference the value outside our component */}
                         <input type="email" ref="email" name="email" placeholder="Email" autoComplete="off"/>
                         <input type="password" ref="password" name="password" placeholder="Password"/>
-                        <button>Create Account</button>
+                        <button className="button">Create Account</button>
                     </form>
                     
                     <Link to="/">Already have an account?</Link>

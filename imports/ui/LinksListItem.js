@@ -69,9 +69,9 @@ class LinksListItem extends React.Component {
                 <p>{this.props.shortUrl}</p>
                 <p>{this.props.visible.toString()}</p>
                 {this.renderStats()}
-                <a href={this.props.shortUrl} target='_blank'>Visit</a>
-                <button ref='copy' data-clipboard-text={this.props.shortUrl}>{copyText}</button>
-                <button onClick={this.setVisibility}>{visibleText}</button>
+                <a className="button button--pill button--link" href={this.props.shortUrl} target='_blank'>Visit</a>
+                <button className="button button--pill" ref='copy' data-clipboard-text={this.props.shortUrl}>{copyText}</button>
+                <button className="button button--pill" onClick={this.setVisibility}>{visibleText}</button>
             </div>
         );
     }

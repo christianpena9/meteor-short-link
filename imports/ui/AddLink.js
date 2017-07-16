@@ -84,7 +84,7 @@ class AddLink extends React.Component {
     render() {
         return(
             <div>
-                <button onClick={this.handleModalOpen}>+ Add Link</button>
+                <button className="button" onClick={this.handleModalOpen}>+ Add Link</button>
                 <Modal
                     isOpen={this.state.isOpen}
                     contentLabel='Add Link'

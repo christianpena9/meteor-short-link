@@ -47,7 +47,7 @@ class Login extends React.Component {
                         {/* Below we can reference the value outside our component */}
                         <input type="email" ref="email" name="email" placeholder="Email" autoComplete="off"/>
                         <input type="password" ref="password" name="password" placeholder="Password"/>
-                        <button>Login</button>
+                        <button className="button">Login</button>
                     </form>
                     <Link to="/signup">Need an account?</Link>
                 </div>
