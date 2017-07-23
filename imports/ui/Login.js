@@ -38,7 +38,7 @@ class Login extends React.Component {
         return (
             <div className="boxed-view">
                 <div className="boxed-view__box">
-                    <h1>Short Lnk</h1>
+                    <h1>Short Lnk Login</h1>
                     
                     {/* Below the undefined or null is ignored by JSX */}
                     {this.state.error ? <p>{this.state.error}</p> : undefined}
