@@ -99,7 +99,7 @@ class AddLink extends React.Component {
                         Below code will return false if the sting is empty. Undefined
                         will not render the code (won't make it appear).
                     */}
-                    { this.state.error ? <p>{this.state.error}</p> : undefined }
+                    { this.state.error ? <p className="error-message">{this.state.error}</p> : undefined }
                     <form onSubmit={this.onSubmit} className="boxed-view__form">
                         <input
                             type="text"
