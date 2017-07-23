@@ -36,9 +36,11 @@ const PrivateHeader = (props) => {
     // Below is another way and then call {onLogout} in the onClick
     // const onLogout = () => Accounts.logout();    
     return(
-        <div>
-            <h1>{props.title}</h1>
-            <button onClick={() => Accounts.logout()}>Logout</button>
+        <div className="header">
+            <div className="header__content">
+                <h1 className="header__title">{props.title}</h1>
+                <button className="button button--link-text" onClick={() => Accounts.logout()}>Logout</button>
+            </div>
         </div>
     );
 }
